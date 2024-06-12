@@ -7,14 +7,23 @@ const app = express();
 const port = 3000;
 env.config();
 
-const db = new pg.Client({
-  user: process.env.PG_USER,
-  host: process.env.PG_HOST,
-  database: process.env.PG_DATABASE,
-  password: process.env.PG_PASSWORD,
-  port: process.env.PG_PORT,
+// const db = new pg.Client({
+//   user: process.env.PG_USER,
+//   host: process.env.PG_HOST,
+//   database: process.env.PG_DATABASE,
+//   password: process.env.PG_PASSWORD,
+//   port: process.env.PG_PORT,
+// });
+// db.connect();
+
+const { Pool } = pg;
+const itemsPool = new Pool({
+  connectionString: process.env.DBConfigLink,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
-db.connect();
+export default itemsPool;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -22,7 +31,7 @@ app.use(express.static("public"));
 var currentEvent = "";
 
 async function selectEvent(eventType) {
-  const result = await db.query(
+  const result = await itemsPool.query(
     "SELECT activity FROM event WHERE eventtype=$1 AND verified=$2",
     [eventType, "1"]
   );
@@ -36,11 +45,11 @@ async function selectEvent(eventType) {
 }
 
 async function addEvent(newEvent) {
-  await db.query("INSERT INTO event (activity) VALUES ($1)", [newEvent]);
+  await itemsPool.query("INSERT INTO event (activity) VALUES ($1)", [newEvent]);
 }
 
 async function selectAllEvent() {
-  const result = await db.query("SELECT * FROM event ORDER BY id");
+  const result = await itemsPool.query("SELECT * FROM event ORDER BY id");
 
   var newEventList = [];
   for (var i = 0; i < result.rows.length; i++) {
@@ -65,7 +74,7 @@ app.post("/add", async (req, res) => {
   res.redirect("/");
 });
 
-app.get("/admin512", async (req, res) => {
+app.get("/admin", async (req, res) => {
   var allEvents = await selectAllEvent();
 
   res.render("new.ejs", {
@@ -77,22 +86,22 @@ app.post("/manage", async (req, res) => {
   if (req.body.verify != null) {
     var selectedId = req.body.verify;
     var selectedType = req.body[selectedId];
-    await db.query(
+    await itemsPool.query(
       "UPDATE event SET eventtype = $1, verified = $2 WHERE id = $3",
       [selectedType, "1", selectedId]
     );
   } else if (req.body.delete != null) {
     var selectedId = req.body.delete;
-    await db.query("DELETE FROM event WHERE id = $1", [selectedId]);
+    await itemsPool.query("DELETE FROM event WHERE id = $1", [selectedId]);
   } else if (req.body.update != null) {
     var selectedId = req.body.update;
     var selectedType = req.body[selectedId];
-    await db.query("UPDATE event SET eventtype = $1 WHERE id = $2", [
+    await itemsPool.query("UPDATE event SET eventtype = $1 WHERE id = $2", [
       selectedType,
       selectedId,
     ]);
   }
-  res.redirect("/admin512");
+  res.redirect("/admin");
 });
 
 app.listen(port, () => {
