@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+
+    <div class="container">
+        <img src="./X-PLORE.png">
+        <h1>無聊有咩搞？</h1>
+
+        <form action="/submit" method="post">
+            <button type="submit" name="type" value="learning" class="learning">學新野</button>
+            <button type="submit" name="type" value="single" class="single">一個人</button>
+            <button type="submit" name="type" value="social" class="social">一班人</button>
+            <button type="submit" name="type" value="business" class="business">認真野</button>
+        </form>
+    
+        <div>
+            <div class="activity">
+                <%if (locals.event) {%>
+                    <%=event%>
+                <%} else {%>
+                    寫個無聊網站
+                <%}%>
+            </div>
+        </div>
+    
+        <form action="/add" method="post">
+            <input type="text" name="newEvent" autofocus placeholder="<%= locals.error ? error :  'Share下你會做啲咩'%>">
+            <button type="submit">新增</button>
+        </form>
+
+        <div class="footer">想知道更多有趣活動，快啲follow我地IG: <a href="https://www.instagram.com/xplore.hk/">XPlore HK</a></div>
+
+    </div>
+
+    <script src="axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="index.js" charset="utf-8"></script>
+
+</body>
+</html>

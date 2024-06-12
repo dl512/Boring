@@ -1,0 +1,134 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-weight: 300;
+}
+
+body {
+    font-family: "Source Sans Pro", sans-serif;
+    color: white;
+    font-weight: 300;
+    background: #50a3a2;
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    margin: 10% auto;
+    padding: 0;
+    text-align: center;
+}
+
+.new {
+    display: block;
+}
+
+.row {
+    padding-top: 20px;
+}
+
+.row .new-activity {
+    display: inline;
+    font-size: 20px;
+    font-weight: 200;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+img {
+    width: 20%;
+}
+
+.container h1 {
+  font-size: 40px;
+  font-weight: 200;
+  padding: 20px;
+}
+
+.container .activity {
+    font-size: 40px;
+    font-weight: 200;
+    margin: 20px;
+    padding: 30px;
+    background-color: black;
+}  
+
+.container .footer {
+    font-size: 20px;
+    font-weight: 200;
+    padding: 50px;
+}  
+
+a:link {
+    color: white;
+  }
+  
+a:visited {
+    color: white;
+}
+
+.container .pending {
+    font-size: 20px;
+    font-weight: 200;
+    padding: 50px;
+}  
+
+input {
+    border: 1px solid rgba(252, 252, 252, 0.4);
+    background-color: rgba(252, 252, 252, 0.2);
+    width: 250px;
+    border-radius: 3px;
+    font-family: "Source Sans Pro", sans-serif;
+    padding: 10px 15px;
+    margin: 0 auto 10px auto;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    font-weight: 300;
+}
+
+button {
+    border: 1px solid rgba(252, 252, 252, 0.4);
+    background-color: white;
+    color: #50a3a2;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 4px;
+    padding: 10px 10px 10px 10px;
+}
+
+select {
+    border: 1px solid rgba(252, 252, 252, 0.4);
+    background-color: white;
+    color: #50a3a2;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.btn-group {
+    margin: 5px 0px 0px 20px;
+}
+
+.small {
+    font-size: 16px;
+    height: 25px;
+    padding: 0px 5px 0px 5px;
+}
+
+.red {
+    background-color: red;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+    <div class="new">
+        <form action="/manage" method="post">
+            <div><% events.forEach(function(event) { %></div>
+                <div class="row">
+                    <div class="managedActivity">
+                        <label for="<%= event.id %>"><div class="new-activity <%=(event.verified !== "1") ? "red" : null%>"><%=event.activity%></div></label>
+                    </div>
+                    <div class="btn-group">
+                        <select class="small" type="submit" name=<%= event.id %>>
+                            <%if(event.verified !== "1"){%>
+                                <option value="">--Select below--</option>
+                            <%}%>
+                            <option value=<%=event.eventtype%>><%=event.eventtype%></option>
+                            <%["learning", "single", "social", "business"].forEach(function(eachType) {%>
+                                <%if (eachType !== event.eventtype) {%>
+                                    <option value=<%=eachType%>><%=eachType%></option>
+                                <%}%>
+                            <%})%>
+                        </select>
+                        <%if (event.verified=="1"){%>
+                            <button class="small" type="submit" name="update" value=<%= event.id %> id=<%= event.id %>>Update</button> 
+                        <%} else {%>
+                            <button class="small" type="submit" name="verify" value=<%= event.id %> id=<%= event.id %>>Verify</button>  
+                        <%}%>
+                        <button class="small" type="submit" name="delete" value=<%= event.id %> id=<%= event.id %>>Delete</button>     
+                    </div>
+                </div>
+            <% }); %>        
+        </form>    
+    </div>
+
+
+</body>
+</html>
